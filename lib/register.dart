@@ -9,6 +9,9 @@ class RegisterForm extends StatefulWidget {
 class _RegisterFormState extends State<RegisterForm> {
   TextEditingController _ctController = TextEditingController();
   TextEditingController _nameController = TextEditingController();
+  TextEditingController _EController = TextEditingController();
+  TextEditingController _PController = TextEditingController();
+  TextEditingController _PassController = TextEditingController();
   final _registerFormKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -16,7 +19,7 @@ class _RegisterFormState extends State<RegisterForm> {
       body: Center(
         child: Container(
           width: MediaQuery.of(context).size.width * 0.6,
-          height: MediaQuery.of(context).size.height * 0.6,
+          height: MediaQuery.of(context).size.height * 0.8,
           decoration: BoxDecoration(
               image: DecorationImage(
             image: AssetImage('assets/background.png'),
@@ -26,13 +29,26 @@ class _RegisterFormState extends State<RegisterForm> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                inputField('CareTaker Name', _ctController, 'Enter Value'),
+                inputField(
+                    'CareTaker Name', _ctController, 'Enter Value', false),
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.035,
+                  height: MediaQuery.of(context).size.height * 0.015,
                 ),
-                inputField('Enter Name', _nameController, 'Enter Value'),
+                inputField('User Name', _nameController, 'Enter Value', false),
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.035,
+                  height: MediaQuery.of(context).size.height * 0.015,
+                ),
+                inputField('Email address', _EController, 'Enter Value', false),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.015,
+                ),
+                inputField('Phone Number', _PController, 'Enter Value', false),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.015,
+                ),
+                inputField('Password', _PassController, 'Enter Value', true),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.015,
                 ),
                 Container(
                     height: MediaQuery.of(context).size.height * 0.08,
@@ -66,8 +82,8 @@ class _RegisterFormState extends State<RegisterForm> {
     );
   }
 
-  Container inputField(
-      String hint, TextEditingController controller, String validateFailTxt) {
+  Container inputField(String hint, TextEditingController controller,
+      String validateFailTxt, bool ispass) {
     return Container(
       constraints:
           BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.2),
@@ -88,6 +104,7 @@ class _RegisterFormState extends State<RegisterForm> {
           )),
           hintText: hint,
         ),
+        obscureText: ispass,
       ),
     );
   }

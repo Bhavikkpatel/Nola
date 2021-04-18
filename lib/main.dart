@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nola_the_bot/register.dart';
 import 'home.dart';
 
 void main() {
@@ -11,7 +12,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        body: HomePage(),
+        body: RegisterForm(),
       ),
     );
   }

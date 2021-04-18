@@ -1,12 +1,26 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:nola_the_bot/class/answers.dart';
+import 'package:intl/intl.dart';
 
 class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
 }
 
+List<String> replies = [
+  'It was good.',
+  'I have many hopes and dreams for the future. Some I have made open to the public and some are just between me and Jesus Christ, my Lord and Savior. Those I will not be able to tell you but as for the others, I can tell you that they are to grow each day. That is the first step. To learn something new each day that helps me grow into a better man and can be more helpful, productive, and worthwhile to those around me and to those I can touch in social media. The next goal is to stay healthy. I can get better each day by telling myself I am no longer sick. The cells in my body have turned over their illnesses and dis-ease to replace it with love and healing. That is what my goal of the day today is. (It works by the way. Watch scientific experiments on YouTube on rice and water in clear jars when spoken to positive and negatively) Then my next goal is to be in alignment and agreement with my God in all my days tasks which leads me to my hopes and dreams. ',
+  'Pretty confident but confused. I have been questioning my capabilities recently.',
+  'I am a computer engineer.',
+  'The environment is troublesome. Always loud and icky.',
+  'god',
+  'Somewhat better than the previous month. I had a better days before.',
+  'I have bought a new Nintendo Switch. So that\'s something.',
+  'Purple.',
+  'I have been sleeping a bit less due to work stress actually. Tiresome and irritating.',
+  'Phineas and Ferb'
+];
 List<String> questions = [
   'Describe your day in one single line.',
   'Can you tell me about your hopes and dreams for the future? What feelings have you had recently about working towards those goals?',
@@ -27,6 +41,13 @@ class _HomePageState extends State<HomePage> {
   List<String> answers = [];
   TextEditingController _question = TextEditingController();
   final GlobalKey<AnimatedListState> listKey = GlobalKey<AnimatedListState>();
+  // @override
+  // void initState() {
+  //   // TODO: implement initState
+  //   super.initState();
+  //   _question.text = replies[0];
+  // }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,16 +58,18 @@ class _HomePageState extends State<HomePage> {
                   if (_answerFormKey.currentState.validate()) {
                     setState(() {
                       answers.add(_question.text);
-                      _question.text = '';
                       index++;
+                      // _question.text = replies[index];
+                      _question.text = '';
                     });
                   }
                 } else {
                   if (_answerFormKey.currentState.validate()) {
                     setState(() {
                       answers.add(_question.text);
-                      _question.text = '';
                       index++;
+                      // _question.text = replies[index];
+                      _question.text = '';
                     });
                     var toServer = GettingStarted(answers);
                     Map a = toServer.convertToJson();
@@ -81,9 +104,19 @@ class _HomePageState extends State<HomePage> {
                             '${questions[index]}',
                             style: TextStyle(fontSize: 30, color: Colors.white),
                           )
-                        : Text(
-                            'Amazing, you have completed!!',
-                            style: TextStyle(fontSize: 30, color: Colors.white),
+                        : Column(
+                            children: [
+                              Text(
+                                'Amazing, you have completed!!',
+                                style: TextStyle(
+                                    fontSize: 30, color: Colors.white),
+                              ),
+                              Text(
+                                'Let meet up tomorrow at ${new DateFormat.jm().format(DateTime.now())}',
+                                style: TextStyle(
+                                    fontSize: 30, color: Colors.white),
+                              ),
+                            ],
                           ),
                     SizedBox(
                       height: MediaQuery.of(context).size.height * 0.1,
@@ -101,14 +134,15 @@ class _HomePageState extends State<HomePage> {
                               },
                               controller: _question,
                               decoration: InputDecoration(
-                                filled: true,
-                                fillColor: Colors.white,
-                                border: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                  color: Colors.black,
-                                )),
-                                hintText: 'Enter input',
-                              ),
+                                  filled: true,
+                                  fillColor: Colors.white,
+                                  border: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                    color: Colors.black,
+                                  )),
+                                  hintText: 'Enter input',
+                                  errorStyle: TextStyle(
+                                      color: Colors.white, fontSize: 15)),
                             ),
                           )
                         : Container(),
